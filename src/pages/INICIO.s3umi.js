@@ -1,9 +1,16 @@
 $w.onReady(function () {
-  // Espera a que el componente esté cargado
-  $w("#html2").onMessage((event) => {
-    console.log("Mensaje recibido desde el HTML:", event.data);
-  });
+  // Oculta el video al cargar la página
+  $w("#videoBox1").hide();
 
-  // Envía un mensaje al HTML embebido
-  $w("#html2").postMessage({ saludo: "¡Hola desde Velo!" });
+  // Escucha mensajes desde el HTML embebido
+  $w("#html1").onMessage((event) => {
+    if (event.data.accion === "mostrarVideo") {
+      // Obtiene posición del botón
+      const buttonPosition = $w("#button1").getBoundingRect();
+
+      // Mueve el video cerca del botón y lo muestra
+      $w("#videoBox1").moveTo(buttonPosition, { duration: 300 })
+        .then(() => $w("#videoBox1").show());
+    }
+  });
 });
