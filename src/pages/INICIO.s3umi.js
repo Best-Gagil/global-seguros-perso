@@ -1,10 +1,12 @@
 import { obtenerDatosUsuario } from "backend/usuario.jsw";
 import { obtenerRecomendaciones } from "backend/recomendaciones.jsw";
+import wixLocation from "wix-location";
 
 $w.onReady(async function () {
   try {
     const usuario = await obtenerDatosUsuario();
-    $w("#html1").postMessage({
+    $w("#videoBox1").hide();
+    $w("#html5").postMessage({
       saludo: `Hola ${usuario.nombre}, ¿cómo estás? ¿Quieres que accedamos a tus datos para recomendarte el mejor plan de seguro para ti?`,
     });
   } catch (error) {
@@ -12,16 +14,18 @@ $w.onReady(async function () {
   }
 });
 
-$w("#html1").onMessage(async (event) => {
+$w("#html5").onMessage(async (event) => {
   if (event.data.confirmacion === "sí") {
     try {
       const usuario = await obtenerDatosUsuario();
       const recomendaciones = await obtenerRecomendaciones(usuario.email);
-      $w("#html1").postMessage({
+      $w("#html5").postMessage({
         recomendaciones: recomendaciones,
       });
     } catch (error) {
       console.error("Error al obtener recomendaciones:", error);
     }
+  } else if (event.data.redireccionar === "seguros") {
+    wixLocation.to("https://www.globalseguroscolombia.com");
   }
 });
