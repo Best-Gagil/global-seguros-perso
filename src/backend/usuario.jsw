@@ -1,0 +1,23 @@
+import { currentMember } from "wix-members-backend";
+
+/**
+ * Obtiene los datos del miembro actualmente registrado.
+ * @returns {Promise<{nombre: string, email: string}>} Objeto con el nombre y correo electrónico del usuario.
+ */
+export async function obtenerDatosUsuario() {
+  try {
+    const member = await currentMember.getMember();
+    if (!member) {
+      throw new Error("No hay un miembro registrado actualmente.");
+    }
+
+    const nombre =
+      member.profile.nickname || member.profile.firstName || "Usuario";
+    const email = member.loginEmail;
+
+    return { nombre, email };
+  } catch (error) {
+    console.error("Error al obtener los datos del usuario:", error);
+    throw error;
+  }
+}
