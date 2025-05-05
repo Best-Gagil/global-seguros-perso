@@ -5,7 +5,7 @@ import wixLocation from "wix-location";
 $w.onReady(async function () {
   try {
     const usuario = await obtenerDatosUsuario();
-    $w("#videoBox1").hide();
+    $w("#videoBox1").show();
     $w("#html5").postMessage({
       saludo: `Hola ${usuario.nombre}, ¿cómo estás? ¿Quieres que accedamos a tus datos para recomendarte el mejor plan de seguro para ti?`,
     });
