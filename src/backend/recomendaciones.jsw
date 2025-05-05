@@ -10,5 +10,5 @@ export async function obtenerRecomendaciones(email) {
   console.log(`Generando recomendaciones para: ${email}`);
 
   // Retorna una recomendación fija para propósitos de prueba
-  return ["Seguro Educativo"];
+  return ["Seguro de Vida"];
 }
