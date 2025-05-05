@@ -5,7 +5,10 @@ import wixLocation from "wix-location";
 $w.onReady(async function () {
   try {
     const usuario = await obtenerDatosUsuario();
+    $w("#button3").hide();
     $w("#videoBox1").show();
+    $w("#videoBox2").hide();
+    $w("#videoBox1").play();
     $w("#html5").postMessage({
       saludo: `Hola ${usuario.nombre}, ¿cómo estás? ¿Quieres que accedamos a tus datos para recomendarte el mejor plan de seguro para ti?`,
     });
@@ -26,6 +29,10 @@ $w("#html5").onMessage(async (event) => {
       console.error("Error al obtener recomendaciones:", error);
     }
   } else if (event.data.redireccionar === "seguros") {
-    wixLocation.to("https://www.globalseguroscolombia.com");
+    $w("#videoBox1").hide();
+    $w("#videoBox2").show();
+    $w("#videoBox2").play();
+    $w("#button3").show();
+    //wixLocation.to("https://www.globalseguroscolombia.com");
   }
 });
