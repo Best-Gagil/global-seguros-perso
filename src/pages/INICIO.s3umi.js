@@ -3,11 +3,11 @@ import { obtenerRecomendaciones } from "backend/recomendaciones.jsw";
 import wixLocation from "wix-location";
 
 $w.onReady(async function () {
+  $w("#videoBox2").hide();
+  $w("#button3").hide();
   try {
     const usuario = await obtenerDatosUsuario();
-    $w("#button3").hide();
     $w("#videoBox1").show();
-    $w("#videoBox2").hide();
     $w("#videoBox1").play();
     $w("#html5").postMessage({
       saludo: `Hola ${usuario.nombre}, ¿cómo estás? ¿Quieres que accedamos a tus datos para recomendarte el mejor plan de seguro para ti?`,
